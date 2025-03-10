@@ -1,0 +1,843 @@
+[
+  {
+    "id": "1",
+    "color": "#70D5C2",
+    "name": "La Bergerie des reptiles",
+    "enclosures": [
+      {
+        "id": "10",
+        "id_biomes": "1",
+        "meal": "",
+        "animals": [
+          {
+            "id": "13",
+            "name": "Python",
+            "id_enclos": "10",
+            "id_animal": "1"
+          },
+          {
+            "id": "14",
+            "name": "Tortue",
+            "id_enclos": "10",
+            "id_animal": "2"
+          },
+          {
+            "id": "15",
+            "name": "Iguane",
+            "id_enclos": "10",
+            "id_animal": "3"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "2",
+    "color": "#A4BDCC",
+    "name": "Le Vallon des cascades",
+    "enclosures": [
+      {
+        "id": "1",
+        "id_biomes": "2",
+        "meal": "",
+        "animals": [
+          {
+            "id": "1",
+            "name": "Ara",
+            "id_enclos": "1",
+            "id_animal": "4"
+          },
+          {
+            "id": "2",
+            "name": "Perroquet",
+            "id_enclos": "1",
+            "id_animal": "7"
+          }
+        ]
+      },
+      {
+        "id": "2",
+        "id_biomes": "2",
+        "meal": "",
+        "animals": [
+          {
+            "id": "3",
+            "name": "Grand Hocco",
+            "id_enclos": "2",
+            "id_animal": "5"
+          }
+        ]
+      },
+      {
+        "id": "3",
+        "id_biomes": "2",
+        "meal": "",
+        "animals": [
+          {
+            "id": "4",
+            "name": "Panthère",
+            "id_enclos": "3",
+            "id_animal": "6"
+          }
+        ]
+      },
+      {
+        "id": "4",
+        "id_biomes": "2",
+        "meal": "",
+        "animals": [
+          {
+            "id": "5",
+            "name": "Panda roux",
+            "id_enclos": "4",
+            "id_animal": "22"
+          }
+        ]
+      },
+      {
+        "id": "5",
+        "id_biomes": "2",
+        "meal": "",
+        "animals": [
+          {
+            "id": "6",
+            "name": "Chèvre naine",
+            "id_enclos": "5",
+            "id_animal": "24"
+          }
+        ]
+      },
+      {
+        "id": "6",
+        "id_biomes": "2",
+        "meal": "",
+        "animals": [
+          {
+            "id": "7",
+            "name": "Lémurien",
+            "id_enclos": "6",
+            "id_animal": "23"
+          }
+        ]
+      },
+      {
+        "id": "7",
+        "id_biomes": "2",
+        "meal": "",
+        "animals": [
+          {
+            "id": "8",
+            "name": "Chèvre naine",
+            "id_enclos": "7",
+            "id_animal": "24"
+          },
+          {
+            "id": "9",
+            "name": "Tortue",
+            "id_enclos": "7",
+            "id_animal": "2"
+          }
+        ]
+      },
+      {
+        "id": "8",
+        "id_biomes": "2",
+        "meal": "",
+        "animals": [
+          {
+            "id": "10",
+            "name": "Mouflon",
+            "id_enclos": "8",
+            "id_animal": "25"
+          }
+        ]
+      },
+      {
+        "id": "9",
+        "id_biomes": "2",
+        "meal": "",
+        "animals": [
+          {
+            "id": "11",
+            "name": "Binturong",
+            "id_enclos": "9",
+            "id_animal": "26"
+          },
+          {
+            "id": "12",
+            "name": "Loutre",
+            "id_enclos": "9",
+            "id_animal": "27"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "3",
+    "color": "#B5A589",
+    "name": "Le Belvédère",
+    "enclosures": [
+      {
+        "id": "11",
+        "id_biomes": "3",
+        "meal": "",
+        "animals": [
+          {
+            "id": "16",
+            "name": "Rhinocéros",
+            "id_enclos": "11",
+            "id_animal": "35"
+          },
+          {
+            "id": "17",
+            "name": "Oryx beisa",
+            "id_enclos": "11",
+            "id_animal": "47"
+          },
+          {
+            "id": "18",
+            "name": "Gnou",
+            "id_enclos": "11",
+            "id_animal": "46"
+          }
+        ]
+      },
+      {
+        "id": "12",
+        "id_biomes": "3",
+        "meal": "",
+        "animals": [
+          {
+            "id": "19",
+            "name": "Suricate",
+            "id_enclos": "12",
+            "id_animal": "36"
+          }
+        ]
+      },
+      {
+        "id": "13",
+        "id_biomes": "3",
+        "meal": "",
+        "animals": [
+          {
+            "id": "20",
+            "name": "Fennec",
+            "id_enclos": "13",
+            "id_animal": "37"
+          }
+        ]
+      },
+      {
+        "id": "14",
+        "id_biomes": "3",
+        "meal": "",
+        "animals": [
+          {
+            "id": "21",
+            "name": "Coati",
+            "id_enclos": "14",
+            "id_animal": "38"
+          },
+          {
+            "id": "22",
+            "name": "Saïmiri",
+            "id_enclos": "14",
+            "id_animal": "39"
+          }
+        ]
+      },
+      {
+        "id": "15",
+        "id_biomes": "3",
+        "meal": "",
+        "animals": [
+          {
+            "id": "23",
+            "name": "Tapir",
+            "id_enclos": "15",
+            "id_animal": "40"
+          }
+        ]
+      },
+      {
+        "id": "16",
+        "id_biomes": "3",
+        "meal": "[]",
+        "animals": [
+          {
+            "id": "24",
+            "name": "Casoar",
+            "id_enclos": "16",
+            "id_animal": "41"
+          }
+        ]
+      },
+      {
+        "id": "17",
+        "id_biomes": "3",
+        "meal": "",
+        "animals": [
+          {
+            "id": "25",
+            "name": "Crocodile nain",
+            "id_enclos": "17",
+            "id_animal": "42"
+          }
+        ]
+      },
+      {
+        "id": "18",
+        "id_biomes": "3",
+        "meal": "",
+        "animals": [
+          {
+            "id": "26",
+            "name": "Guépard",
+            "id_enclos": "18",
+            "id_animal": "43"
+          },
+          {
+            "id": "31",
+            "name": "Guépard",
+            "id_enclos": "18",
+            "id_animal": "43"
+          }
+        ]
+      },
+      {
+        "id": "19",
+        "id_biomes": "3",
+        "meal": "",
+        "animals": [
+          {
+            "id": "27",
+            "name": "Gazelle",
+            "id_enclos": "19",
+            "id_animal": "44"
+          },
+          {
+            "id": "28",
+            "name": "Autruche",
+            "id_enclos": "19",
+            "id_animal": "45"
+          },
+          {
+            "id": "32",
+            "name": "Gazelle",
+            "id_enclos": "19",
+            "id_animal": "44"
+          },
+          {
+            "id": "33",
+            "name": "Autruche",
+            "id_enclos": "19",
+            "id_animal": "45"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "4",
+    "color": "#E2A59D",
+    "name": "Le Plateau",
+    "enclosures": [
+      {
+        "id": "20",
+        "id_biomes": "4",
+        "meal": "",
+        "animals": [
+          {
+            "id": "29",
+            "name": "Tamarin",
+            "id_enclos": "20",
+            "id_animal": "8"
+          },
+          {
+            "id": "34",
+            "name": "Tamarin",
+            "id_enclos": "20",
+            "id_animal": "8"
+          }
+        ]
+      },
+      {
+        "id": "21",
+        "id_biomes": "4",
+        "meal": "",
+        "animals": [
+          {
+            "id": "30",
+            "name": "Capucin",
+            "id_enclos": "21",
+            "id_animal": "9"
+          },
+          {
+            "id": "35",
+            "name": "Capucin",
+            "id_enclos": "21",
+            "id_animal": "9"
+          }
+        ]
+      },
+      {
+        "id": "22",
+        "id_biomes": "4",
+        "meal": "",
+        "animals": [
+          {
+            "id": "36",
+            "name": "Ouistiti",
+            "id_enclos": "22",
+            "id_animal": "10"
+          }
+        ]
+      },
+      {
+        "id": "23",
+        "id_biomes": "4",
+        "meal": "",
+        "animals": [
+          {
+            "id": "37",
+            "name": "Gibbon",
+            "id_enclos": "23",
+            "id_animal": "11"
+          }
+        ]
+      },
+      {
+        "id": "24",
+        "id_biomes": "4",
+        "meal": "",
+        "animals": [
+          {
+            "id": "38",
+            "name": "Grivet",
+            "id_enclos": "24",
+            "id_animal": "15"
+          },
+          {
+            "id": "39",
+            "name": "Cercorpithèque",
+            "id_enclos": "24",
+            "id_animal": "16"
+          }
+        ]
+      },
+      {
+        "id": "25",
+        "id_biomes": "4",
+        "meal": "",
+        "animals": [
+          {
+            "id": "40",
+            "name": "Varan de Komodo",
+            "id_enclos": "25",
+            "id_animal": "12"
+          }
+        ]
+      },
+      {
+        "id": "26",
+        "id_biomes": "4",
+        "meal": "",
+        "animals": [
+          {
+            "id": "41",
+            "name": "Girafe",
+            "id_enclos": "26",
+            "id_animal": "14"
+          }
+        ]
+      },
+      {
+        "id": "27",
+        "id_biomes": "4",
+        "meal": "",
+        "animals": [
+          {
+            "id": "42",
+            "name": "Eléphant",
+            "id_enclos": "27",
+            "id_animal": "13"
+          }
+        ]
+      },
+      {
+        "id": "28",
+        "id_biomes": "4",
+        "meal": "",
+        "animals": [
+          {
+            "id": "43",
+            "name": "Hyène",
+            "id_enclos": "28",
+            "id_animal": "17"
+          }
+        ]
+      },
+      {
+        "id": "29",
+        "id_biomes": "4",
+        "meal": "",
+        "animals": [
+          {
+            "id": "44",
+            "name": "Loup à crinière",
+            "id_enclos": "29",
+            "id_animal": "18"
+          }
+        ]
+      },
+      {
+        "id": "30",
+        "id_biomes": "4",
+        "meal": "",
+        "animals": [
+          {
+            "id": "45",
+            "name": "Lion",
+            "id_enclos": "30",
+            "id_animal": "19"
+          }
+        ]
+      },
+      {
+        "id": "31",
+        "id_biomes": "4",
+        "meal": "",
+        "animals": [
+          {
+            "id": "46",
+            "name": "Lion",
+            "id_enclos": "31",
+            "id_animal": "19"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "5",
+    "color": "#E2CA9D",
+    "name": "Les Clairières",
+    "enclosures": [
+      {
+        "id": "37",
+        "id_biomes": "5",
+        "meal": "",
+        "animals": [
+          {
+            "id": "54",
+            "name": "Cigogne",
+            "id_enclos": "37",
+            "id_animal": "49"
+          }
+        ]
+      },
+      {
+        "id": "38",
+        "id_biomes": "5",
+        "meal": "",
+        "animals": []
+      },
+      {
+        "id": "39",
+        "id_biomes": "5",
+        "meal": "",
+        "animals": [
+          {
+            "id": "56",
+            "name": "Oryx algazelle",
+            "id_enclos": "39",
+            "id_animal": "50"
+          },
+          {
+            "id": "57",
+            "name": "Watusi",
+            "id_enclos": "39",
+            "id_animal": "51"
+          },
+          {
+            "id": "58",
+            "name": "Ane de Somalie",
+            "id_enclos": "39",
+            "id_animal": "52"
+          }
+        ]
+      },
+      {
+        "id": "40",
+        "id_biomes": "5",
+        "meal": "",
+        "animals": [
+          {
+            "id": "59",
+            "name": "Yack",
+            "id_enclos": "40",
+            "id_animal": "53"
+          },
+          {
+            "id": "60",
+            "name": "Mouton noir",
+            "id_enclos": "40",
+            "id_animal": "54"
+          }
+        ]
+      },
+      {
+        "id": "41",
+        "id_biomes": "5",
+        "meal": "",
+        "animals": [
+          {
+            "id": "61",
+            "name": "Ibis",
+            "id_enclos": "41",
+            "id_animal": "55"
+          },
+          {
+            "id": "62",
+            "name": "Tortue",
+            "id_enclos": "41",
+            "id_animal": "2"
+          }
+        ]
+      },
+      {
+        "id": "42",
+        "id_biomes": "5",
+        "meal": "",
+        "animals": [
+          {
+            "id": "63",
+            "name": "Pécari",
+            "id_enclos": "42",
+            "id_animal": "56"
+          }
+        ]
+      },
+      {
+        "id": "43",
+        "id_biomes": "5",
+        "meal": "",
+        "animals": [
+          {
+            "id": "64",
+            "name": "Tamanoir",
+            "id_enclos": "43",
+            "id_animal": "57"
+          },
+          {
+            "id": "65",
+            "name": "Flamant rose",
+            "id_enclos": "43",
+            "id_animal": "58"
+          },
+          {
+            "id": "66",
+            "name": "Nandou",
+            "id_enclos": "43",
+            "id_animal": "59"
+          }
+        ]
+      },
+      {
+        "id": "44",
+        "id_biomes": "5",
+        "meal": "",
+        "animals": [
+          {
+            "id": "67",
+            "name": "Emeu",
+            "id_enclos": "44",
+            "id_animal": "60"
+          },
+          {
+            "id": "68",
+            "name": "Wallaby",
+            "id_enclos": "44",
+            "id_animal": "61"
+          }
+        ]
+      },
+      {
+        "id": "45",
+        "id_biomes": "5",
+        "meal": "",
+        "animals": [
+          {
+            "id": "69",
+            "name": "Porc-épic",
+            "id_enclos": "45",
+            "id_animal": "62"
+          }
+        ]
+      },
+      {
+        "id": "46",
+        "id_biomes": "5",
+        "meal": "",
+        "animals": [
+          {
+            "id": "70",
+            "name": "Lynx",
+            "id_enclos": "46",
+            "id_animal": "63"
+          }
+        ]
+      },
+      {
+        "id": "47",
+        "id_biomes": "5",
+        "meal": "",
+        "animals": [
+          {
+            "id": "71",
+            "name": "Serval",
+            "id_enclos": "47",
+            "id_animal": "64"
+          }
+        ]
+      },
+      {
+        "id": "48",
+        "id_biomes": "5",
+        "meal": "",
+        "animals": [
+          {
+            "id": "72",
+            "name": "Chien des buissons",
+            "id_enclos": "48",
+            "id_animal": "65"
+          }
+        ]
+      },
+      {
+        "id": "49",
+        "id_biomes": "5",
+        "meal": "",
+        "animals": [
+          {
+            "id": "73",
+            "name": "Tigre",
+            "id_enclos": "49",
+            "id_animal": "66"
+          }
+        ]
+      },
+      {
+        "id": "50",
+        "id_biomes": "5",
+        "meal": "",
+        "animals": [
+          {
+            "id": "74",
+            "name": "Bison",
+            "id_enclos": "50",
+            "id_animal": "67"
+          }
+        ]
+      },
+      {
+        "id": "51",
+        "id_biomes": "5",
+        "meal": "",
+        "animals": [
+          {
+            "id": "75",
+            "name": "Ane de provence",
+            "id_enclos": "51",
+            "id_animal": "68"
+          },
+          {
+            "id": "76",
+            "name": "Dromadaire",
+            "id_enclos": "51",
+            "id_animal": "69"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "6",
+    "color": "#C5E29D",
+    "name": "Le Bois des pins",
+    "enclosures": [
+      {
+        "id": "32",
+        "id_biomes": "6",
+        "meal": "",
+        "animals": [
+          {
+            "id": "47",
+            "name": "Macaque crabier",
+            "id_enclos": "32",
+            "id_animal": "28"
+          }
+        ]
+      },
+      {
+        "id": "33",
+        "id_biomes": "6",
+        "meal": "",
+        "animals": [
+          {
+            "id": "48",
+            "name": "Cerf",
+            "id_enclos": "33",
+            "id_animal": "29"
+          }
+        ]
+      },
+      {
+        "id": "34",
+        "id_biomes": "6",
+        "meal": "",
+        "animals": []
+      },
+      {
+        "id": "35",
+        "id_biomes": "6",
+        "meal": "",
+        "animals": [
+          {
+            "id": "49",
+            "name": "Daim",
+            "id_enclos": "35",
+            "id_animal": "31"
+          },
+          {
+            "id": "50",
+            "name": "Antilope",
+            "id_enclos": "35",
+            "id_animal": "32"
+          },
+          {
+            "id": "51",
+            "name": "Nilgut",
+            "id_enclos": "35",
+            "id_animal": "33"
+          }
+        ]
+      },
+      {
+        "id": "36",
+        "id_biomes": "6",
+        "meal": "",
+        "animals": [
+          {
+            "id": "52",
+            "name": "Loup d'Europe",
+            "id_enclos": "36",
+            "id_animal": "34"
+          }
+        ]
+      }
+    ]
+  }
+]

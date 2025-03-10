@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "441055779559",
+    "project_id": "barben-park",
+    "storage_bucket": "barben-park.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:441055779559:android:60419f752f857d26f9e042",
+        "android_client_info": {
+          "package_name": "fr.isen.missigbeto.barbenpark"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "441055779559-sofdh35984t5g08i8dova0hsbfkdfsvl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "fr.isen.missigbeto.barbenpark",
+            "certificate_hash": "e03b576d214c146db640344ce2298ce871fdcffa"
+          }
+        },
+        {
+          "client_id": "441055779559-saqbqrk8mkg20u397abu065o6f7plj3g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBe7iIaumvw13bqKGPwXlujP5FZVCxB7H4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "441055779559-saqbqrk8mkg20u397abu065o6f7plj3g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

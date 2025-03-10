@@ -11,11 +11,22 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+//import androidx.lifecycle.lifecycleScope
 import fr.isen.missigbeto.barbenpark.ui.theme.BarbenParkTheme
+
+import fr.isen.missigbeto.barbenpark.utils.JsonReader
+import fr.isen.missigbeto.barbenpark.utils.FirestoreHelper
+import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+       // lifecycleScope.launch {
+        //    val zones = JsonReader.loadZooData(this@MainActivity)
+        //    if (zones.isNotEmpty()) {
+        //       FirestoreHelper.uploadZooData(zones)
+        //   }
+        //  }
         enableEdgeToEdge()
         setContent {
             BarbenParkTheme {
