@@ -1,58 +1,68 @@
 package fr.isen.missigbeto.barbenpark
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-//import androidx.lifecycle.lifecycleScope
+import androidx.compose.ui.draw.blur
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
+import fr.isen.missigbeto.barbenpark.screens.ZonesActivity
 import fr.isen.missigbeto.barbenpark.ui.theme.BarbenParkTheme
-
-import fr.isen.missigbeto.barbenpark.utils.JsonReader
-import fr.isen.missigbeto.barbenpark.utils.FirestoreHelper
-import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-       // lifecycleScope.launch {
-        //    val zones = JsonReader.loadZooData(this@MainActivity)
-        //    if (zones.isNotEmpty()) {
-        //       FirestoreHelper.uploadZooData(zones)
-        //   }
-        //  }
         enableEdgeToEdge()
         setContent {
             BarbenParkTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+                WelcomeContent()
             }
         }
     }
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
+fun WelcomeContent() {
+    // Récupérer le contexte actuel pour lancer l'activité
+    val context = LocalContext.current
+    
+    Box(modifier = Modifier.fillMaxSize()) {
+        // Image de fond floutée
+        Image(
+            painter = painterResource(id = R.drawable.welcome),
+            contentDescription = null,
+            modifier = Modifier
+                .fillMaxSize()
+                .blur(radius = 3.dp),
+            contentScale = ContentScale.Crop
+        )
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    BarbenParkTheme {
-        Greeting("Android")
+        // Bouton central avec navigation vers ZonesActivity
+        Button(
+            onClick = { 
+                // Lancer l'activité ZonesActivity
+                val intent = Intent(context, ZonesActivity::class.java)
+                context.startActivity(intent)
+            },
+            modifier = Modifier
+                .align(Alignment.Center)
+                .padding(16.dp)
+        ) {
+            Text(text = stringResource(R.string.welcomeButton))
+        }
     }
 }
