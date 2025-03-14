@@ -1,5 +1,6 @@
 package fr.isen.missigbeto.barbenpark.screens
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -14,6 +15,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -22,6 +24,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import fr.isen.missigbeto.barbenpark.models.Zone
 import fr.isen.missigbeto.barbenpark.ui.theme.BarbenParkTheme
 import kotlinx.coroutines.tasks.await
+import fr.isen.missigbeto.barbenpark.screens.EnclosuresActivity
 
 class ZonesActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -127,6 +130,8 @@ fun ZonesScreen() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ZoneTile(zone: Zone) {
+    val context = LocalContext.current
+    
     val backgroundColor = try {
         Color(android.graphics.Color.parseColor(zone.color))
     } catch (e: Exception) {
@@ -142,7 +147,13 @@ fun ZoneTile(zone: Zone) {
             containerColor = backgroundColor
         ),
         onClick = {
-            // TODO: Navigation vers le détail de la zone
+            // Navigation vers EnclosuresActivity
+            val intent = Intent(context, EnclosuresActivity::class.java).apply {
+                putExtra("ZONE_ID", zone.id)
+                putExtra("ZONE_NAME", zone.name)
+                putExtra("ZONE_COLOR", zone.color)
+            }
+            context.startActivity(intent)
         }
     ) {
         Box(

@@ -23,6 +23,12 @@
             android:label="@string/title_activity_welcome_screen"
             android:theme="@style/Theme.BarbenPark" />
         <activity
+            android:name=".screens.EnclosuresActivity"
+            android:exported="false" />
+        <activity
+            android:name=".screens.AnimalsActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
