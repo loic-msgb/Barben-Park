@@ -5,12 +5,14 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -75,8 +77,17 @@ fun EnclosuresScreen(zoneId: String, zoneName: String, zoneColor: String) {
                 val id = document.id
                 val id_biomes = document.getString("id_biomes") ?: ""
                 val meal = document.getString("meal") ?: ""
+                val etat = document.getString("etat") ?: "ouvert"
+                // Utilisez toDouble() qui est plus sûr que getDouble qui pourrait retourner null
+                val note = document.get("note")?.toString()?.toDoubleOrNull() ?: 0.0
                 
-                enclosuresList.add(Enclosure(id = id, id_biomes = id_biomes, meal = meal))
+                enclosuresList.add(Enclosure(
+                    id = id, 
+                    id_biomes = id_biomes, 
+                    meal = meal,
+                    etat = etat,
+                    note = note
+                ))
             }
             
             enclosures = enclosuresList
@@ -175,6 +186,9 @@ fun EnclosureTile(enclosure: Enclosure, zoneColor: String) {
     // Récupérer l'ID de zone depuis les arguments d'intent de l'activité actuelle
     val zoneId = (context as? EnclosuresActivity)?.intent?.getStringExtra("ZONE_ID") ?: ""
     
+    // Couleur pour l'état de l'enclos
+    val etatColor = if (enclosure.etat == "ouvert") Color.Green else Color.Red
+    
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -196,12 +210,32 @@ fun EnclosureTile(enclosure: Enclosure, zoneColor: String) {
         Column(
             modifier = Modifier.padding(16.dp)
         ) {
-            Text(
-                text = "Enclos ${enclosure.id}",
-                fontWeight = FontWeight.Bold,
-                fontSize = 16.sp,
-                color = Color.White
-            )
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = "Enclos ${enclosure.id}",
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 16.sp,
+                    color = Color.White
+                )
+                
+                // Affichage de l'état (ouvert/fermé)
+                Text(
+                    text = enclosure.etat.uppercase(),
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 12.sp,
+                    color = etatColor,
+                    modifier = Modifier
+                        .background(
+                            color = Color.White.copy(alpha = 0.3f),
+                            shape = RoundedCornerShape(4.dp)
+                        )
+                        .padding(horizontal = 8.dp, vertical = 4.dp)
+                )
+            }
             
             Spacer(modifier = Modifier.height(8.dp))
             
@@ -218,7 +252,49 @@ fun EnclosureTile(enclosure: Enclosure, zoneColor: String) {
                     color = Color.White.copy(alpha = 0.8f)
                 )
             }
+            
+            // Affichage de la note
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.padding(top = 8.dp)
+            ) {
+                Text(
+                    text = "Note: ",
+                    fontSize = 14.sp,
+                    color = Color.White
+                )
+                
+                // Affichage des étoiles pour la note
+                RatingDisplay(rating = enclosure.note)
+                
+                // Affichage de la note en chiffre
+                Text(
+                    text = " (${String.format("%.1f", enclosure.note)})",
+                    fontSize = 14.sp,
+                    color = Color.White
+                )
+            }
         }
     }
 }
 
+// Composant pour afficher les étoiles de notation
+@Composable
+fun RatingDisplay(rating: Double) {
+    Row {
+        for (i in 1..5) {
+            val starFill = when {
+                i <= rating -> 1f
+                i - rating < 1 -> i - rating
+                else -> 0f
+            }
+            
+            Icon(
+                imageVector = Icons.Filled.Star,
+                contentDescription = "Étoile $i",
+                tint = Color.Yellow.copy(alpha = starFill.toFloat()),
+                modifier = Modifier.size(16.dp)
+            )
+        }
+    }
+}

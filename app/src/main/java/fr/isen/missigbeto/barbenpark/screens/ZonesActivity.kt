@@ -26,6 +26,7 @@ import fr.isen.missigbeto.barbenpark.ui.theme.BarbenParkTheme
 import kotlinx.coroutines.tasks.await
 import fr.isen.missigbeto.barbenpark.screens.EnclosuresActivity
 import fr.isen.missigbeto.barbenpark.screens.AnimalsActivity
+import fr.isen.missigbeto.barbenpark.components.BottomNavBar
 
 class ZonesActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,15 +34,24 @@ class ZonesActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             BarbenParkTheme {
-                ZonesScreen()
+                ZonesScreenWithNavBar()
             }
         }
     }
 }
 
+@Composable
+fun ZonesScreenWithNavBar() {
+    Scaffold(
+        bottomBar = { BottomNavBar(currentRoute = "zones") }
+    ) { innerPadding ->
+        ZonesScreen(modifier = Modifier.padding(innerPadding))
+    }
+}
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ZonesScreen() {
+fun ZonesScreen(modifier: Modifier = Modifier) {
     var zones by remember { mutableStateOf<List<Zone>>(emptyList()) }
     var isLoading by remember { mutableStateOf(true) }
     var error by remember { mutableStateOf<String?>(null) }
@@ -83,7 +93,7 @@ fun ZonesScreen() {
         }
     ) { innerPadding ->
         Box(
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxSize()
                 .padding(innerPadding)
         ) {

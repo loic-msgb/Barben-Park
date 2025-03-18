@@ -5,64 +5,42 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.blur
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
+import com.google.gson.Gson
+import fr.isen.missigbeto.barbenpark.models.Zone
 import fr.isen.missigbeto.barbenpark.screens.ZonesActivity
 import fr.isen.missigbeto.barbenpark.ui.theme.BarbenParkTheme
+import fr.isen.missigbeto.barbenpark.utils.FirestoreHelper
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContent {
-            BarbenParkTheme {
-                WelcomeContent()
-            }
-        }
+        
+        // Décommentez la ligne suivante pour réimporter les données dans Firestore
+        //importDataToFirestore()
+        
+        // Redirection vers ZonesActivity
+        val intent = Intent(this, ZonesActivity::class.java)
+        startActivity(intent)
+        finish() // Ferme MainActivity pour qu'elle ne reste pas dans le back stack
     }
-}
-
-@Composable
-fun WelcomeContent() {
-    // Récupérer le contexte actuel pour lancer l'activité
-    val context = LocalContext.current
     
-    Box(modifier = Modifier.fillMaxSize()) {
-        // Image de fond floutée
-        Image(
-            painter = painterResource(id = R.drawable.welcome),
-            contentDescription = null,
-            modifier = Modifier
-                .fillMaxSize()
-                .blur(radius = 3.dp),
-            contentScale = ContentScale.Crop
-        )
-
-        // Bouton central avec navigation vers ZonesActivity
-        Button(
-            onClick = { 
-                // Lancer l'activité ZonesActivity
-                val intent = Intent(context, ZonesActivity::class.java)
-                context.startActivity(intent)
-            },
-            modifier = Modifier
-                .align(Alignment.Center)
-                .padding(16.dp)
-        ) {
-            Text(text = stringResource(R.string.welcomeButton))
+    private fun importDataToFirestore() {
+        try {
+            // Lire le fichier JSON depuis les assets
+            val jsonString = assets.open("zoo.json").bufferedReader().use { it.readText() }
+            
+            // Convertir le JSON en liste d'objets Zone
+            val zonesList = Gson().fromJson(jsonString, Array<Zone>::class.java).toList()
+            
+            // Lancer l'upload vers Firestore
+            CoroutineScope(Dispatchers.Main).launch {
+                FirestoreHelper.uploadZooData(zonesList)
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
     }
 }

@@ -14,7 +14,7 @@
         tools:targetApi="31">
         <activity
             android:name=".screens.ZonesActivity"
-            android:exported="false"
+            android:exported="true"
             android:label="@string/title_activity_zones"
             android:theme="@style/Theme.BarbenPark" />
         <activity
@@ -27,6 +27,9 @@
             android:exported="false" />
         <activity
             android:name=".screens.AnimalsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".screens.ServicesActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
