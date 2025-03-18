@@ -1,15 +1,15 @@
 package fr.isen.missigbeto.barbenpark.screens
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -17,23 +17,26 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.google.firebase.firestore.FirebaseFirestore
-import fr.isen.missigbeto.barbenpark.models.Zone
+import fr.isen.missigbeto.barbenpark.models.Animal
 import fr.isen.missigbeto.barbenpark.ui.theme.BarbenParkTheme
 import kotlinx.coroutines.tasks.await
-import fr.isen.missigbeto.barbenpark.screens.EnclosuresActivity
-import fr.isen.missigbeto.barbenpark.screens.AnimalsActivity
 
-class ZonesActivity : ComponentActivity() {
+class AnimalsActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        
+        // Récupérer les paramètres passés à l'activité
+        val zoneId = intent.getStringExtra("ZONE_ID") ?: ""
+        val enclosureId = intent.getStringExtra("ENCLOSURE_ID") ?: ""
+        val zoneColor = intent.getStringExtra("ZONE_COLOR") ?: "#CCCCCC"
+        
         setContent {
             BarbenParkTheme {
-                ZonesScreen()
+                AnimalsScreen(zoneId, enclosureId, zoneColor)
             }
         }
     }
@@ -41,27 +44,43 @@ class ZonesActivity : ComponentActivity() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ZonesScreen() {
-    var zones by remember { mutableStateOf<List<Zone>>(emptyList()) }
+fun AnimalsScreen(zoneId: String, enclosureId: String, zoneColor: String) {
+    var animals by remember { mutableStateOf<List<Animal>>(emptyList()) }
     var isLoading by remember { mutableStateOf(true) }
     var error by remember { mutableStateOf<String?>(null) }
+    
+    // Récupérer la couleur de la zone
+    val backgroundColor = try {
+        Color(android.graphics.Color.parseColor(zoneColor))
+    } catch (e: Exception) {
+        MaterialTheme.colorScheme.surfaceVariant
+    }
+    
+    // Récupérer le contexte
+    val context = LocalContext.current
 
     // Effet pour charger les données au démarrage
-    LaunchedEffect(key1 = "loadZones") {
+    LaunchedEffect(key1 = "$zoneId-$enclosureId") {
         try {
             val firestore = FirebaseFirestore.getInstance()
-            val zonesSnapshot = firestore.collection("zones").get().await()
+            val animalsSnapshot = firestore.collection("zones")
+                .document(zoneId)
+                .collection("enclosures")
+                .document(enclosureId)
+                .collection("animals")
+                .get()
+                .await()
             
-            val zonesList = mutableListOf<Zone>()
-            for (document in zonesSnapshot.documents) {
+            val animalsList = mutableListOf<Animal>()
+            for (document in animalsSnapshot.documents) {
                 val id = document.id
                 val name = document.getString("name") ?: ""
-                val color = document.getString("color") ?: "#CCCCCC"
+                val id_animal = document.getString("id_animal") ?: ""
                 
-                zonesList.add(Zone(id = id, name = name, color = color))
+                animalsList.add(Animal(id = id, name = name, id_animal = id_animal))
             }
             
-            zones = zonesList
+            animals = animalsList
             isLoading = false
         } catch (e: Exception) {
             error = e.message
@@ -71,14 +90,29 @@ fun ZonesScreen() {
 
     Scaffold(
         topBar = {
-            CenterAlignedTopAppBar(
+            TopAppBar(
                 title = {
                     Text(
-                        "Les zones du parc",
+                        text = "Animaux de l'enclos",
                         fontWeight = FontWeight.Bold,
-                        fontSize = 24.sp
+                        fontSize = 20.sp
                     )
-                }
+                },
+                navigationIcon = {
+                    IconButton(onClick = {
+                        if (context is ComponentActivity) {
+                            context.finish()
+                        }
+                    }) {
+                        Icon(
+                            imageVector = Icons.Default.ArrowBack,
+                            contentDescription = "Retour"
+                        )
+                    }
+                },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = backgroundColor
+                )
             )
         }
     ) { innerPadding ->
@@ -102,24 +136,22 @@ fun ZonesScreen() {
                             .padding(16.dp)
                     )
                 }
-                zones.isEmpty() -> {
+                animals.isEmpty() -> {
                     Text(
-                        text = "Aucune zone trouvée",
+                        text = "Aucun animal trouvé dans cet enclos",
                         modifier = Modifier
                             .align(Alignment.Center)
                             .padding(16.dp)
                     )
                 }
                 else -> {
-                    LazyVerticalGrid(
-                        columns = GridCells.Fixed(2),
+                    LazyColumn(
                         contentPadding = PaddingValues(16.dp),
                         verticalArrangement = Arrangement.spacedBy(16.dp),
-                        horizontalArrangement = Arrangement.spacedBy(16.dp),
                         modifier = Modifier.fillMaxSize()
                     ) {
-                        items(zones) { zone ->
-                            ZoneTile(zone = zone)
+                        items(animals) { animal ->
+                            AnimalCard(animal = animal, zoneColor = zoneColor)
                         }
                     }
                 }
@@ -128,13 +160,10 @@ fun ZonesScreen() {
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ZoneTile(zone: Zone) {
-    val context = LocalContext.current
-    
+fun AnimalCard(animal: Animal, zoneColor: String) {
     val backgroundColor = try {
-        Color(android.graphics.Color.parseColor(zone.color))
+        Color(android.graphics.Color.parseColor(zoneColor)).copy(alpha = 0.7f)
     } catch (e: Exception) {
         MaterialTheme.colorScheme.surfaceVariant
     }
@@ -142,32 +171,28 @@ fun ZoneTile(zone: Zone) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .height(130.dp),
+            .padding(4.dp),
         shape = RoundedCornerShape(12.dp),
         colors = CardDefaults.cardColors(
             containerColor = backgroundColor
-        ),
-        onClick = {
-            // Navigation vers EnclosuresActivity
-            val intent = Intent(context, EnclosuresActivity::class.java).apply {
-                putExtra("ZONE_ID", zone.id)
-                putExtra("ZONE_NAME", zone.name)
-                putExtra("ZONE_COLOR", zone.color)
-            }
-            context.startActivity(intent)
-        }
+        )
     ) {
-        Box(
-            modifier = Modifier.fillMaxSize(),
-            contentAlignment = Alignment.Center
+        Column(
+            modifier = Modifier.padding(16.dp)
         ) {
             Text(
-                text = zone.name,
+                text = animal.name,
                 fontWeight = FontWeight.Bold,
                 fontSize = 16.sp,
-                color = Color.White,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.padding(16.dp)
+                color = Color.White
+            )
+            
+            Spacer(modifier = Modifier.height(8.dp))
+            
+            Text(
+                text = "ID: ${animal.id_animal}",
+                fontSize = 14.sp,
+                color = Color.White.copy(alpha = 0.8f)
             )
         }
     }
