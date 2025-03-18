@@ -32,6 +32,15 @@
             android:name=".screens.ServicesActivity"
             android:exported="false" />
         <activity
+            android:name=".screens.ProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".screens.LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".screens.RegisterActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
