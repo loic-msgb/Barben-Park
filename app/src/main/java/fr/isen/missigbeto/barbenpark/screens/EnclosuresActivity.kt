@@ -175,6 +175,19 @@ fun EnclosureTile(enclosure: Enclosure, zoneColor: String, zoneId: String) {
     // Ajouter cette ligne pour gérer la note temporaire dans la boîte de dialogue
     var dialogTempRating by remember { mutableStateOf(0) }
     
+    var isAdmin by remember { mutableStateOf(false) }
+    var isStateUpdateLoading by remember { mutableStateOf(false) }
+    
+    // Vérifier si l'utilisateur est admin
+    LaunchedEffect(Unit) {
+        if (AuthHelper.isUserLoggedIn()) {
+            AuthHelper.getUserData()
+                .onSuccess { user ->
+                    isAdmin = user.role == "admin"
+                }
+        }
+    }
+    
     // Charger la note de l'utilisateur
     LaunchedEffect(enclosure.id) {
         if (AuthHelper.isUserLoggedIn()) {
@@ -227,19 +240,66 @@ fun EnclosureTile(enclosure: Enclosure, zoneColor: String, zoneId: String) {
                     color = Color.White
                 )
                 
-                // Affichage de l'état (ouvert/fermé)
-                Text(
-                    text = enclosure.etat.uppercase(),
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 12.sp,
-                    color = etatColor,
-                    modifier = Modifier
-                        .background(
-                            color = Color.White.copy(alpha = 0.3f),
-                            shape = RoundedCornerShape(4.dp)
+                // État avec bouton de modification pour les admins
+                if (isAdmin) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.End,
+                        modifier = Modifier.clickable(
+                            enabled = !isStateUpdateLoading,
+                            onClick = {
+                                coroutineScope.launch {
+                                    isStateUpdateLoading = true
+                                    val newState = if (enclosure.etat == "ouvert") "fermé" else "ouvert"
+                                    
+                                    FirestoreHelper.updateEnclosureState(zoneId, enclosure.id, newState)
+                                        .onSuccess {
+                                            // Rafraîchir l'activité
+                                            (context as? ComponentActivity)?.recreate()
+                                        }
+                                        .onFailure { e ->
+                                            errorMessage = e.message
+                                        }
+                                    isStateUpdateLoading = false
+                                }
+                            }
                         )
-                        .padding(horizontal = 8.dp, vertical = 4.dp)
-                )
+                    ) {
+                        if (isStateUpdateLoading) {
+                            CircularProgressIndicator(
+                                modifier = Modifier.size(16.dp),
+                                color = Color.White
+                            )
+                        } else {
+                            Text(
+                                text = enclosure.etat.uppercase(),
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 12.sp,
+                                color = etatColor,
+                                modifier = Modifier
+                                    .background(
+                                        color = Color.White.copy(alpha = 0.3f),
+                                        shape = RoundedCornerShape(4.dp)
+                                    )
+                                    .padding(horizontal = 8.dp, vertical = 4.dp)
+                            )
+                        }
+                    }
+                } else {
+                    // Affichage standard pour les visiteurs
+                    Text(
+                        text = enclosure.etat.uppercase(),
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 12.sp,
+                        color = etatColor,
+                        modifier = Modifier
+                            .background(
+                                color = Color.White.copy(alpha = 0.3f),
+                                shape = RoundedCornerShape(4.dp)
+                            )
+                            .padding(horizontal = 8.dp, vertical = 4.dp)
+                    )
+                }
             }
             
             Spacer(modifier = Modifier.height(8.dp))

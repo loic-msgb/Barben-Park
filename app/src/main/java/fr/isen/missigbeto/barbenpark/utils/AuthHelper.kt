@@ -83,23 +83,29 @@ object AuthHelper {
         return withContext(Dispatchers.IO) {
             try {
                 val currentUser = auth.currentUser
-                
-                if (currentUser != null) {
-                    val documentSnapshot = firestore.collection("users")
-                        .document(currentUser.uid)
-                        .get()
-                        .await()
-                    
-                    val user = documentSnapshot.toObject(User::class.java)
-                    
-                    if (user != null) {
-                        Result.success(user)
-                    } else {
-                        Result.failure(Exception("Données utilisateur introuvables"))
-                    }
-                } else {
-                    Result.failure(Exception("Aucun utilisateur connecté"))
+                if (currentUser == null) {
+                    return@withContext Result.failure(Exception("Aucun utilisateur connecté"))
                 }
+
+                val userDoc = firestore.collection("users")
+                    .document(currentUser.uid)
+                    .get()
+                    .await()
+
+                if (!userDoc.exists()) {
+                    return@withContext Result.failure(Exception("Données utilisateur introuvables"))
+                }
+
+                val user = User(
+                    id = currentUser.uid,
+                    nom = userDoc.getString("nom") ?: "",
+                    prenom = userDoc.getString("prenom") ?: "",
+                    age = userDoc.getLong("age")?.toInt() ?: 0,
+                    email = userDoc.getString("email") ?: "",
+                    role = userDoc.getString("role") ?: "visiteur"
+                )
+
+                Result.success(user)
             } catch (e: Exception) {
                 Result.failure(e)
             }

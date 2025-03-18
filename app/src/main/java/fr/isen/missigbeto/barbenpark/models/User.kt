@@ -5,5 +5,6 @@ data class User(
     val nom: String = "",
     val prenom: String = "",
     val age: Int = 0,
-    val email: String = ""
+    val email: String = "",
+    val role: String = "visiteur" // Valeur par défaut "visiteur"
 )

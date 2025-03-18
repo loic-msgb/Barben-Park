@@ -185,5 +185,42 @@ object FirestoreHelper {
         repeat(decimals) { multiplier *= 10 }
         return kotlin.math.round(this * multiplier) / multiplier
     }
+
+    suspend fun updateEnclosureState(zoneId: String, enclosureId: String, newState: String): Result<Boolean> {
+        return withContext(Dispatchers.IO) {
+            try {
+                val firestore = FirebaseFirestore.getInstance()
+                val currentUser = FirebaseAuth.getInstance().currentUser
+                
+                if (currentUser == null) {
+                    return@withContext Result.failure(Exception("Utilisateur non connecté"))
+                }
+                
+                // Vérifier le rôle de l'utilisateur
+                val userDoc = firestore.collection("users")
+                    .document(currentUser.uid)
+                    .get()
+                    .await()
+                
+                val userRole = userDoc.getString("role") ?: "visiteur"
+                
+                if (userRole != "admin") {
+                    return@withContext Result.failure(Exception("Permission refusée : rôle admin requis"))
+                }
+                
+                // Mettre à jour l'état de l'enclos
+                firestore.collection("zones")
+                    .document(zoneId)
+                    .collection("enclosures")
+                    .document(enclosureId)
+                    .update("etat", newState)
+                    .await()
+                
+                Result.success(true)
+            } catch (e: Exception) {
+                Result.failure(e)
+            }
+        }
+    }
 }
 
